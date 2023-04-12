@@ -15,12 +15,12 @@ def initiate_payment(request):
     except Exception as e:
     	print(e)
     	return render(request, 'cart.html', context={'error': 'Wrong Accound Details or amount'})																		
-    	
-    transaction = Transaction.objects.create(made_by=user, amount=amount)	
-   	transaction.save()
-   	merchant_key = settings.PAYTM_SECRET_KEY
+    
 
-	params = (
+    transaction = Transaction.objects.create(made_by=user, amount=amount)	
+    transaction.save()
+    merchant_key = settings.PAYTM_SECRET_KEY
+    params = (
         ('MID', settings.PAYTM_MERCHANT_ID),
         ('ORDER_ID', str(transaction.order_id)),
         ('CUST_ID', str(transaction.made_by.email)),
